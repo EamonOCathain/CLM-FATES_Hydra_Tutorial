@@ -1,0 +1,1172 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../installation/">
+      
+      
+        <link rel="next" href="../site-level-runs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Default Global Run - CLM-FATES on Hydra Tutorial</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-2-creating-and-running-a-default-clm-fates-simulation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CLM-FATES on Hydra Tutorial" class="md-header__button md-logo" aria-label="CLM-FATES on Hydra Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CLM-FATES on Hydra Tutorial
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Default Global Run
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CLM-FATES on Hydra Tutorial" class="md-nav__button md-logo" aria-label="CLM-FATES on Hydra Tutorial" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CLM-FATES on Hydra Tutorial
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Default Global Run
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Default Global Run
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-create_newcase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding create_newcase
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case Name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-the-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the Case
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../site-level-runs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site-Level Simulations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inventory-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory Initialization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regional-runs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regional Simulations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visualisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../further-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Further Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-create_newcase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding create_newcase
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case Name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-the-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the Case
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="part-2-creating-and-running-a-default-clm-fates-simulation">Part 2: Creating and Running a Default CLM-FATES Simulation</h1>
+<p>CESM simulations follow four main steps:</p>
+<ol>
+<li>Create a case</li>
+<li>Set up the case</li>
+<li>Build the model executable</li>
+<li>Submit the model run</li>
+</ol>
+<p>These four commands form the core CESM workflow:</p>
+<div class="highlight"><pre><span></span><code>./create_newcase
+./case.setup
+./case.build
+./case.submit
+</code></pre></div>
+<hr />
+<h2 id="understanding-create_newcase">Understanding create_newcase</h2>
+<p>The <code>create_newcase</code> command defines:</p>
+<ul>
+<li>The case name</li>
+<li>The model resolution</li>
+<li>The component set (compset)</li>
+<li>The compiler</li>
+<li>The target machine</li>
+</ul>
+<p>General syntax:</p>
+<div class="highlight"><pre><span></span><code>./create_newcase<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--case<span class="w"> </span>CASE_NAME<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--res<span class="w"> </span>RESOLUTION<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--compset<span class="w"> </span>COMPSET<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--compiler<span class="w"> </span>COMPILER<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--machine<span class="w"> </span>MACHINE
+</code></pre></div>
+<hr />
+<h2 id="case-name">Case Name</h2>
+<p>The <code>--case</code> argument defines where the case will be created.</p>
+<p>For this tutorial:</p>
+<div class="highlight"><pre><span></span><code>--case<span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/cases/control
+</code></pre></div>
+<p>The case will be called:</p>
+<div class="highlight"><pre><span></span><code>control
+</code></pre></div>
+<p>and all case configuration files will be stored under:</p>
+<div class="highlight"><pre><span></span><code>$VSC_SCRATCH/cesm/cases/control
+</code></pre></div>
+<hr />
+<h2 id="resolution">Resolution</h2>
+<p>The <code>--res</code> argument defines the model grid.</p>
+<p>For this tutorial:</p>
+<div class="highlight"><pre><span></span><code>--res<span class="w"> </span>f19_g17
+</code></pre></div>
+<p>This corresponds to a global grid with approximately:</p>
+<div class="highlight"><pre><span></span><code>1.9° latitude × 2.5° longitude
+</code></pre></div>
+<p>Many additional grids are available:</p>
+<p>http://www.cesm.ucar.edu/models/cesm2/config/grids.html</p>
+<hr />
+<h2 id="compset">Compset</h2>
+<p>The <code>--compset</code> argument defines:</p>
+<ul>
+<li>Which model components are active</li>
+<li>Physical parameterisations</li>
+<li>Forcing configuration</li>
+<li>Carbon and vegetation options</li>
+</ul>
+<p>For this tutorial we use:</p>
+<div class="highlight"><pre><span></span><code>I2000Clm50Fates
+</code></pre></div>
+<p>This is a CLM5-based FATES simulation representing year-2000 conditions.</p>
+<p>A full list of CESM compsets is available at:</p>
+<p>http://www.cesm.ucar.edu/models/cesm2/config/compsets.html</p>
+<hr />
+<h2 id="create-the-case">Create the Case</h2>
+<p>Move to the CESM scripts directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/sources/ctsm-5.2.0/cime/scripts
+</code></pre></div>
+<p>Create the case:</p>
+<div class="highlight"><pre><span></span><code>./create_newcase<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--case<span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/cases/control<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--res<span class="w"> </span>f19_g17<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--compset<span class="w"> </span>I2000Clm50Fates<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--compiler<span class="w"> </span>gnu<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--machine<span class="w"> </span>hydra<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--run-unsupported
+</code></pre></div>
+<p>After completion, move to the case directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/cases/control
+</code></pre></div>
+<p>Inspect the generated files:</p>
+<div class="highlight"><pre><span></span><code>ls
+</code></pre></div>
+<p>The newly created case now contains all configuration files required to set up, compile, and run the model.</p>
+<h1 id="part-3-configuring-the-case-with-casesetup">Part 3: Configuring the Case with case.setup</h1>
+<p>Once the case has been created, the next step is to configure how the simulation will run.</p>
+<p>The case configuration is stored in a collection of XML files located in the case directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/cases/control
+</code></pre></div>
+<p>List the contents:</p>
+<div class="highlight"><pre><span></span><code>ls
+</code></pre></div>
+<p>You should see files such as:</p>
+<div class="highlight"><pre><span></span><code>env_run.xml
+env_batch.xml
+env_build.xml
+env_mach_pes.xml
+</code></pre></div>
+<p>These files control:</p>
+<ul>
+<li>Run length</li>
+<li>Start date</li>
+<li>Restart frequency</li>
+<li>Walltime</li>
+<li>Number of processors</li>
+<li>Compilation settings</li>
+<li>Batch submission options</li>
+</ul>
+<hr />
+<h2 id="inspect-the-default-run-settings">Inspect the Default Run Settings</h2>
+<p>Open the run configuration file:</p>
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>env_run.xml
+</code></pre></div>
+<p>Try to find:</p>
+<ul>
+<li>The simulation start date</li>
+<li>How long the model will run</li>
+<li>Restart settings</li>
+</ul>
+<p>Although these files can be edited directly, CESM recommends using the <code>xmlchange</code> utility.</p>
+<hr />
+<h2 id="disable-short-term-archiving">Disable Short-Term Archiving</h2>
+<p>For tutorial runs we disable the short-term archiver.</p>
+<p>Run:</p>
+<div class="highlight"><pre><span></span><code>./xmlchange<span class="w"> </span><span class="nv">DOUT_S</span><span class="o">=</span>FALSE
+</code></pre></div>
+<p>Verify the change:</p>
+<div class="highlight"><pre><span></span><code>./xmlquery<span class="w"> </span>DOUT_S
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code>DOUT_S: FALSE
+</code></pre></div>
+<hr />
+<h2 id="set-simulation-length">Set Simulation Length</h2>
+<p>For this tutorial we will run a 12-month simulation.</p>
+<p>Configure the run length:</p>
+<div class="highlight"><pre><span></span><code>./xmlchange<span class="w"> </span><span class="nv">STOP_N</span><span class="o">=</span><span class="m">12</span>,STOP_OPTION<span class="o">=</span>nmonths
+</code></pre></div>
+<p>This tells CESM:</p>
+<div class="highlight"><pre><span></span><code>STOP_OPTION = nmonths
+STOP_N      = 12
+</code></pre></div>
+<p>meaning:</p>
+<div class="highlight"><pre><span></span><code>Run for 12 months.
+</code></pre></div>
+<p>Verify:</p>
+<div class="highlight"><pre><span></span><code>./xmlquery<span class="w"> </span>STOP_N
+./xmlquery<span class="w"> </span>STOP_OPTION
+</code></pre></div>
+<hr />
+<h2 id="configure-computational-resources">Configure Computational Resources</h2>
+<p>Set the number of MPI tasks and walltime:</p>
+<div class="highlight"><pre><span></span><code>./xmlchange<span class="w"> </span><span class="nv">NTASKS</span><span class="o">=</span><span class="m">4</span>,JOB_WALLCLOCK_TIME<span class="o">=</span><span class="m">24</span>:00:00
+</code></pre></div>
+<p>This requests:</p>
+<div class="highlight"><pre><span></span><code>4 MPI tasks
+24 hours walltime
+</code></pre></div>
+<p>Verify:</p>
+<div class="highlight"><pre><span></span><code>./xmlquery<span class="w"> </span>NTASKS
+./xmlquery<span class="w"> </span>JOB_WALLCLOCK_TIME
+</code></pre></div>
+<hr />
+<h2 id="run-casesetup">Run case.setup</h2>
+<p>Once the configuration is complete, initialise the case:</p>
+<div class="highlight"><pre><span></span><code>./case.setup
+</code></pre></div>
+<p>This command:</p>
+<ul>
+<li>Generates component namelists</li>
+<li>Creates batch scripts</li>
+<li>Creates user namelist files</li>
+<li>Prepares the case for compilation</li>
+</ul>
+<p>New files will appear in the case directory.</p>
+<p>Inspect the directory again:</p>
+<div class="highlight"><pre><span></span><code>ls
+</code></pre></div>
+<p>Pay particular attention to:</p>
+<div class="highlight"><pre><span></span><code>user_nl_clm
+user_nl_datm
+CaseDocs/
+Buildconf/
+</code></pre></div>
+<p>These files are generated during setup and contain the final configuration that will be passed to the model.</p>
+<hr />
+<h2 id="modifying-clm-namelists">Modifying CLM Namelists</h2>
+<p>Many CLM options can be changed through:</p>
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>user_nl_clm
+</code></pre></div>
+<p>This file allows users to override default namelist values.</p>
+<p>Examples include:</p>
+<ul>
+<li>Output variables</li>
+<li>Surface datasets</li>
+<li>Initial conditions</li>
+<li>Carbon cycle options</li>
+<li>FATES settings</li>
+</ul>
+<p>Reference:</p>
+<p>https://www.cesm.ucar.edu/models/cesm2/settings/current/clm5_0_nml.html</p>
+<hr />
+<h1 id="part-4-building-the-model-with-casebuild">Part 4: Building the Model with case.build</h1>
+<p>After setup, the model must be compiled.</p>
+<p>Compilation converts the source code into an executable that can run on Hydra.</p>
+<hr />
+<h2 id="start-compilation">Start Compilation</h2>
+<p>From the case directory:</p>
+<div class="highlight"><pre><span></span><code>./case.build
+</code></pre></div>
+<p>Compilation may take several minutes.</p>
+<p>During the build process CESM:</p>
+<ol>
+<li>Generates final namelists</li>
+<li>Compiles supporting libraries</li>
+<li>Compiles individual model components</li>
+<li>Links everything into a single executable</li>
+</ol>
+<hr />
+<h2 id="what-gets-compiled">What Gets Compiled?</h2>
+<p>For a CLM-FATES run you will typically see components such as:</p>
+<div class="highlight"><pre><span></span><code>datm
+clm
+mosart
+cpl
+</code></pre></div>
+<p>along with supporting libraries:</p>
+<div class="highlight"><pre><span></span><code>gptl
+mct
+pio
+csm_share
+</code></pre></div>
+<p>Briefly:</p>
+<p><strong>gptl</strong>
+Timing and profiling library.</p>
+<p><strong>mct</strong>
+Model Coupling Toolkit used for communication between components.</p>
+<p><strong>pio</strong>
+Parallel I/O library for reading and writing NetCDF files.</p>
+<p><strong>csm_share</strong>
+Shared CESM infrastructure used by multiple components.</p>
+<p><strong>datm</strong>
+Data atmosphere model providing meteorological forcing.</p>
+<p><strong>clm</strong>
+Community Land Model containing FATES.</p>
+<p><strong>mosart</strong>
+River routing model.</p>
+<p><strong>cpl</strong>
+The coupler that exchanges information between components.</p>
+<hr />
+<h2 id="build-success">Build Success</h2>
+<p>The build is successful when you see:</p>
+<div class="highlight"><pre><span></span><code>MODEL BUILD HAS FINISHED SUCCESSFULLY
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>Total build time: 334 seconds
+MODEL BUILD HAS FINISHED SUCCESSFULLY
+</code></pre></div>
+<p>At this point the executable has been created and the model is ready to run.</p>
+<hr />
+<h1 id="part-5-exploring-the-source-code-and-input-data">Part 5: Exploring the Source Code and Input Data</h1>
+<p>While the model is compiling it is useful to explore the source code and datasets used by CLM-FATES.</p>
+<hr />
+<h2 id="exploring-the-fates-source-code">Exploring the FATES Source Code</h2>
+<p>Move to the FATES source directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/sources/ctsm-5.2.0/src/fates
+</code></pre></div>
+<p>One useful file to inspect is:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>biogeophys
+
+vi<span class="w"> </span>FatesPlantHydraulicsMod.F90
+</code></pre></div>
+<p>This module contains parts of the plant hydraulics implementation.</p>
+<p>The FATES source tree is organised into modules covering topics such as:</p>
+<div class="highlight"><pre><span></span><code>allometry
+carbon cycling
+recruitment
+mortality
+competition
+radiation
+hydraulics
+disturbance
+</code></pre></div>
+<p>Do not modify any source files during the tutorial.</p>
+<hr />
+<h2 id="exploring-input-data">Exploring Input Data</h2>
+<p>The CESM input datasets are stored under:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/inputdata
+</code></pre></div>
+<p>For CLM-FATES, important datasets include:</p>
+<div class="highlight"><pre><span></span><code>surface datasets
+domain files
+meteorological forcing
+parameter files
+initial conditions
+</code></pre></div>
+<hr />
+<h2 id="surface-datasets">Surface Datasets</h2>
+<p>Navigate to:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/inputdata/lnd/clm2/surfdata_esmf
+</code></pre></div>
+<p>Surface datasets contain information such as:</p>
+<ul>
+<li>Land cover</li>
+<li>Soil properties</li>
+<li>Topography</li>
+<li>PFT distributions</li>
+<li>Urban fractions</li>
+<li>Crop fractions</li>
+</ul>
+<hr />
+<h2 id="parameter-files">Parameter Files</h2>
+<p>Navigate to:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/inputdata/lnd/clm2/paramdata
+</code></pre></div>
+<p>These files contain:</p>
+<ul>
+<li>Plant traits</li>
+<li>Photosynthesis parameters</li>
+<li>Hydraulic parameters</li>
+<li>Carbon cycle coefficients</li>
+<li>FATES PFT definitions</li>
+</ul>
+<hr />
+<h2 id="inspect-netcdf-files">Inspect NetCDF Files</h2>
+<p>Useful commands:</p>
+<p>Display metadata:</p>
+<div class="highlight"><pre><span></span><code>ncdump<span class="w"> </span>-h<span class="w"> </span>filename.nc
+</code></pre></div>
+<p>Display dimensions and variables:</p>
+<div class="highlight"><pre><span></span><code>ncks<span class="w"> </span>-m<span class="w"> </span>filename.nc
+</code></pre></div>
+<p>Visualise interactively:</p>
+<div class="highlight"><pre><span></span><code>ncview<span class="w"> </span>filename.nc
+</code></pre></div>
+<p>(Note that ncview generally requires a graphical session and may not work through the web interface.)</p>
+<hr />
+<h2 id="understanding-input-data-requirements">Understanding Input Data Requirements</h2>
+<p>CLM-FATES requires several categories of input data:</p>
+<div class="highlight"><pre><span></span><code>Meteorological forcing
+Surface datasets
+Domain files
+Parameter files
+Initial condition files
+</code></pre></div>
+<p>These files determine:</p>
+<ul>
+<li>Where the model runs</li>
+<li>Which vegetation is present</li>
+<li>How the vegetation behaves</li>
+<li>What climate it experiences</li>
+<li>How the simulation is initialised</li>
+</ul>
+<p>In later sections we will replace many of these default datasets with site-specific FATES inputs.</p>
+<h1 id="part-6-running-the-model-and-inspecting-output">Part 6: Running the Model and Inspecting Output</h1>
+<p>Once the model has been successfully built, it can be submitted to the scheduler.</p>
+<hr />
+<h2 id="submit-the-model-run">Submit the Model Run</h2>
+<p>From the case directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/cases/control
+</code></pre></div>
+<p>Submit the run:</p>
+<div class="highlight"><pre><span></span><code>./case.submit
+</code></pre></div>
+<p>CESM will:</p>
+<ul>
+<li>Verify required input files exist</li>
+<li>Generate final namelists</li>
+<li>Create batch submission scripts</li>
+<li>Submit the job to SLURM</li>
+</ul>
+<hr />
+<h2 id="monitor-job-status">Monitor Job Status</h2>
+<p>Check the queue:</p>
+<div class="highlight"><pre><span></span><code>mysqueue
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code>squeue<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span>
+</code></pre></div>
+<p>Typical job states include:</p>
+<div class="highlight"><pre><span></span><code>PD = Pending
+R  = Running
+CG = Completing
+</code></pre></div>
+<hr />
+<h2 id="cancel-a-job">Cancel a Job</h2>
+<p>If necessary:</p>
+<div class="highlight"><pre><span></span><code>scancel<span class="w"> </span>&lt;jobid&gt;
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>scancel<span class="w"> </span><span class="m">6031806</span>
+</code></pre></div>
+<hr />
+<h2 id="locate-model-output">Locate Model Output</h2>
+<p>Once the run has completed, move to the run directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/output/control/run
+</code></pre></div>
+<p>List the contents:</p>
+<div class="highlight"><pre><span></span><code>ls
+</code></pre></div>
+<p>You should see various NetCDF output files.</p>
+<p>Typical files include:</p>
+<div class="highlight"><pre><span></span><code>control.clm2.h0.0001-01.nc
+control.clm2.r.0002-01-01-00000.nc
+control.cpl.hi.0001-01.nc
+</code></pre></div>
+<hr />
+<h2 id="inspect-clm-output">Inspect CLM Output</h2>
+<p>Open the main CLM history file:</p>
+<div class="highlight"><pre><span></span><code>ncview<span class="w"> </span>control.clm2.h0.0001-01.nc
+</code></pre></div>
+<p>Alternatively inspect metadata:</p>
+<div class="highlight"><pre><span></span><code>ncdump<span class="w"> </span>-h<span class="w"> </span>control.clm2.h0.0001-01.nc
+</code></pre></div>
+<p>Questions to explore:</p>
+<ul>
+<li>Which time period does the file cover?</li>
+<li>Which variables are available?</li>
+<li>Which dimensions are present?</li>
+<li>What units are used?</li>
+</ul>
+<hr />
+<h2 id="common-output-variables">Common Output Variables</h2>
+<p>Examples include:</p>
+<div class="highlight"><pre><span></span><code>GPP
+NPP
+TLAI
+TOTVEGC
+TOTSOMC
+QVEGE
+QVEGT
+QSOIL
+</code></pre></div>
+<p>You can inspect individual variables using:</p>
+<div class="highlight"><pre><span></span><code>ncks<span class="w"> </span>-m<span class="w"> </span>control.clm2.h0.0001-01.nc
+</code></pre></div>
+<hr />
+<h2 id="useful-output-directories">Useful Output Directories</h2>
+<p>Case setup:</p>
+<div class="highlight"><pre><span></span><code>$VSC_SCRATCH/cesm/cases/control
+</code></pre></div>
+<p>Run output:</p>
+<div class="highlight"><pre><span></span><code>$VSC_SCRATCH/cesm/output/control/run
+</code></pre></div>
+<p>Build logs:</p>
+<div class="highlight"><pre><span></span><code>$VSC_SCRATCH/cesm/output/control/bld
+</code></pre></div>
+<p>Archive files:</p>
+<div class="highlight"><pre><span></span><code>$VSC_SCRATCH/cesm/output/control/archive
+</code></pre></div>
+<hr />
+<h1 id="part-7-understanding-the-cesm-directory-structure">Part 7: Understanding the CESM Directory Structure</h1>
+<p>A typical CESM installation contains four main directories.</p>
+<hr />
+<h2 id="cesm-scripts-directory">CESM Scripts Directory</h2>
+<p>Location:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/sources/ctsm-5.2.0/cime/scripts
+</code></pre></div>
+<p>Purpose:</p>
+<div class="highlight"><pre><span></span><code>Create new cases
+Manage configurations
+Generate case directories
+</code></pre></div>
+<p>Important command:</p>
+<div class="highlight"><pre><span></span><code>./create_newcase
+</code></pre></div>
+<hr />
+<h2 id="input-data-directory">Input Data Directory</h2>
+<p>Location:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/inputdata
+</code></pre></div>
+<p>Purpose:</p>
+<div class="highlight"><pre><span></span><code>Meteorological forcing
+Surface datasets
+Domain files
+Parameter files
+Initial conditions
+</code></pre></div>
+<p>This directory is typically shared between users.</p>
+<hr />
+<h2 id="cases-directory">Cases Directory</h2>
+<p>Location:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/cases
+</code></pre></div>
+<p>Purpose:</p>
+<div class="highlight"><pre><span></span><code>Case setup
+Configuration
+Compilation
+Submission
+</code></pre></div>
+<p>Each simulation has its own case directory.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>cases/control
+</code></pre></div>
+<hr />
+<h2 id="output-directory">Output Directory</h2>
+<p>Location:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="nv">$VSC_SCRATCH</span>/cesm/output
+</code></pre></div>
+<p>Purpose:</p>
+<div class="highlight"><pre><span></span><code>Executable build files
+Runtime files
+Model output
+Restart files
+Logs
+</code></pre></div>
+<p>This is where the model actually runs.</p>
+<hr />
+<h2 id="useful-links">Useful Links</h2>
+<p>CLM5 namelists:</p>
+<p>https://www.cesm.ucar.edu/models/cesm2/settings/2.2.0/clm5_0_nml.html</p>
+<p>CESM2 compsets:</p>
+<p>https://www.cesm.ucar.edu/models/cesm2/config/compsets.html</p>
+<p>CLM5 documentation:</p>
+<p>https://escomp.github.io/ctsm-docs/versions/release-clm5.0/html/tech_note/index.html</p>
+<p>CESM website:</p>
+<p>http://www.cesm.ucar.edu/models/cesm2/</p>
+<p>Example plotting scripts:</p>
+<p>https://github.com/sdeherto/CLM-FATES4UGent/tree/main/plotting</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "toc.follow", "content.code.copy", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
