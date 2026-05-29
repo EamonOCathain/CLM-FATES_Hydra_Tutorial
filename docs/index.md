@@ -2,8 +2,6 @@
 
 ## Introduction
 
-TEST
-
 This tutorial provides a practical introduction to running CLM-FATES on the Hydra HPC cluster at VUB.
 
 The material is based on a combination of practical sessions from the Land Climate Dynamics course (VUB) and the FATES tutorial held at Lawrence Berkeley National Laboratory in 2024.
